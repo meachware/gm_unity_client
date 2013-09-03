@@ -1,0 +1,202 @@
+package com.game_machine.entity_system.generated;
+
+option optimize_for = SPEED;
+
+message GetNeighbors {
+	required bool value = 1;
+	optional uint32 search_radius = 2;
+}
+
+message TrackPlayer {
+	required bool value = 1;
+	optional bool internal = 2;
+}
+
+message PlayerMove {
+	required Target target = 1;
+}
+message Target {
+	required uint64 x = 1;
+	required uint64 y = 2;
+}
+
+message PlayerAttack {
+	required Target target = 1;
+	required string ability = 2;
+}
+
+message RegisterPlayerObserver {
+  required string playerId = 1;
+  required string event = 2;
+}
+
+message PlayerRegister {
+	required string playerId = 1;
+	required ClientConnection clientConnection = 2;
+	optional string observer = 3;
+}
+	
+message Disconnected {
+	required string playerId = 1;
+	required string clientId = 2;
+}
+
+message PlayerLogout {
+	required string playerId = 1;
+}
+
+message ClientDisconnect {
+	required ClientConnection clientConnection = 1;
+}
+
+message ErrorMessage {
+	required string code = 1;
+	required string message = 2;
+}
+	
+message ChatChannels {
+	repeated ChatChannel chatChannel = 1;
+}
+
+message ChatChannel {
+	required string name = 1;
+}
+
+message JoinChat {
+	repeated ChatChannel chatChannel = 1;
+}
+
+message LeaveChat {
+	repeated ChatChannel chatChannel = 1;
+}
+
+message ChatMessage {
+	required ChatChannel chatChannel = 1;
+	required string message = 2;
+	required string type = 3;
+	optional string senderId = 4;
+}
+
+message ChatRegister {
+}
+
+message Subscribe {
+	required string topic = 1;
+}
+
+message Unsubscribe {
+	required string topic = 1;
+}
+
+message Publish {
+	required string topic = 1;
+	required Entity message = 2;
+}
+	
+message ObjectdbGet {
+	required string entityId = 1;
+}
+
+message ObjectdbPut {
+	required Entity entity = 1;
+}
+
+message ObjectdbUpdate {
+	required string entityId = 1;
+	required string updateClass = 2;
+	required string updateMethod = 3;
+}
+
+message ClientConnection {
+	required string id = 1;
+	optional string gateway = 2;
+}
+
+
+message PlayerLogin {
+	required string username = 1;
+	required string password = 2;
+}
+
+
+message Player {
+	optional int32 x = 1;
+	optional int32 y = 2;
+	optional int32 z = 3;
+	required string id = 4;
+	optional string name = 5;
+	optional bool authenticated = 6;
+	optional string authtoken = 7;
+}
+
+message EchoTest {
+	required string message = 1;
+}
+	
+message TestObject {
+  optional string optionalString = 1;
+  required string requiredString = 2;
+  repeated int32 numbers = 3;
+  optional bytes bstring = 4;
+  optional bool bvalue = 5;
+  optional double dvalue = 6;
+  optional float fvalue = 7;
+  optional int64 numbers64 = 8;
+  repeated Player player = 9;
+  enum Corpus {
+    UNIVERSAL = 0;
+    WEB = 1;
+    IMAGES = 2;
+    LOCAL = 3;
+    NEWS = 4;
+    PRODUCTS = 5;
+    VIDEO = 6;
+  }
+  optional Corpus corpus = 10;
+  repeated Corpus corpus2 = 11;
+}
+  
+  
+message Neighbors {
+  repeated Player player = 1;
+}
+	
+message GameCommand {
+	required string name = 1;
+	optional TestObject testObject = 3;
+}
+
+message Entity {
+	optional Player player = 1;
+  	optional Neighbors neighbors = 2;
+  	optional GameCommand gameCommand = 3;
+  	optional ChatMessage chatMessage = 4;
+  	optional ClientConnection clientConnection = 5;
+  	optional EchoTest echoTest = 6;
+  	required string id = 7;
+  	optional PlayerLogin playerLogin = 8;
+  	optional Subscribe subscribe = 9;
+  	optional Publish publish = 10;
+  	optional ChatChannel chatChannel = 11;
+  	optional JoinChat joinChat = 12;
+  	optional LeaveChat leaveChat = 13;
+  	optional Unsubscribe unsubscribe = 14;
+  	optional ChatRegister chatRegister = 15;
+  	optional ChatChannels chatChannels = 16;
+  	optional ErrorMessage errorMessage = 17;
+    optional RegisterPlayerObserver registerPlayerObserver = 18;
+    optional PlayerMove playerMove = 19;
+    optional PlayerAttack playerAttack = 20;
+    optional GetNeighbors getNeighbors = 21;
+    optional TrackPlayer trackPlayer = 22;
+}
+
+message ClientMessage {
+	repeated Entity entity = 1;
+	optional Player player = 2;
+	optional PlayerLogin playerLogin = 3;
+	optional ClientConnection clientConnection = 4;
+	optional ClientDisconnect clientDisconnect = 5;
+	optional PlayerLogout playerLogout = 6;
+	optional ErrorMessage errorMessage = 17;
+}
